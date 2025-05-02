@@ -36,7 +36,14 @@ jobs:
 
       - name: Build
         run: |
-          xcodebuild archive -project TomatoBar.xcodeproj -scheme TomatoBar -configuration Release -archivePath TomatoBar.xcarchive MARKETING_VERSION=${{github.ref_name}}
+          xcodebuild archive \
+            -project TomatoBar.xcodeproj \
+            -scheme TomatoBar \
+            -configuration Release \
+            -archivePath TomatoBar.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            MARKETING_VERSION=${{ github.ref_name }}
           xcodebuild -exportArchive -archivePath TomatoBar.xcarchive -exportOptionsPlist export_options.plist -exportPath .
           zip -r "TomatoBar-${{env.version}}.zip" "TomatoBar.app"
 
